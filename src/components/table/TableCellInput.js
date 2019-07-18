@@ -21,11 +21,13 @@ const TableCellInput = ({ initialValue, onChange }) => {
         300,
     );
     const handleOnChange = (event) => debouncedCallback(event.target.value);
+    const handleOnBlur = (event) => onChange(event.target.value);
 
     return (
         <StyledInput
             defaultValue={value}
             onChange={handleOnChange}
+            onBlur={handleOnBlur}
         />
     );
 };

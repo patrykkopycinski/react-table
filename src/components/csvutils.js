@@ -19,14 +19,11 @@ export function downloadCSV(csvContent) {
 }
 
 export function exportCSV(columns, rows) {
-    console.error('asdd', columns, JSON.stringify(rows));
     const columnEntries = Object.entries(columns);
     const rowsArray = getRowsWithExistingColumns(rows, columnEntries);
     
     const columnsCSVContent = getColumnsCSVContent(columnEntries);
     const rowsCCVContent = getRowsCSVContent(rowsArray);
-
-    console.error('asd', columnsCSVContent, rowsCCVContent);
 
     return columnsCSVContent + rowsCCVContent;
 };
