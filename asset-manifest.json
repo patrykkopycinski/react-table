@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.js": "/react-table/static/js/main.219a0aa2.chunk.js",
+    "main.js.map": "/react-table/static/js/main.219a0aa2.chunk.js.map",
+    "runtime~main.js": "/react-table/static/js/runtime~main.15ef8938.js",
+    "runtime~main.js.map": "/react-table/static/js/runtime~main.15ef8938.js.map",
+    "static/js/2.43e845fd.chunk.js": "/react-table/static/js/2.43e845fd.chunk.js",
+    "static/js/2.43e845fd.chunk.js.map": "/react-table/static/js/2.43e845fd.chunk.js.map",
+    "index.html": "/react-table/index.html",
+    "precache-manifest.86bc8d6ca9d5c92f781b4497d9549a3e.js": "/react-table/precache-manifest.86bc8d6ca9d5c92f781b4497d9549a3e.js",
+    "service-worker.js": "/react-table/service-worker.js"
+  }
+}
