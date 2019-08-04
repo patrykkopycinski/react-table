@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import styled from 'styled-components';
 
 const StyledSection = styled.div`
@@ -8,4 +8,4 @@ const StyledSection = styled.div`
 
 const AddRowSection = props => <StyledSection {...props} />;
 
-export default AddRowSection;
+export default memo(AddRowSection);

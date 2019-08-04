@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import styled from 'styled-components';
 import { MdDelete } from 'react-icons/md';
 import Button from './Button';
@@ -17,4 +17,4 @@ const DeleteButton = props => (
   </StyledButton>
 );
 
-export default DeleteButton;
+export default memo(DeleteButton);

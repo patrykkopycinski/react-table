@@ -1,75 +1,46 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useCallback, useReducer } from 'react';
 
 import AppContainer from './components/layout/AppContainer';
 import GlobalStyle from './components/layout/GlobalStyle';
 import Table from './components/table/Table';
 import { downloadCSV, exportCSV } from './components/csvutils';
-import { INITIAL_COLUMNS } from './components/constants';
 import AddRowSection from './components/layout/AddRowSection';
 import ExportCSVButton from './components/buttons/ExportCSVButton';
 import CreateTableButton from './components/buttons/CreateTableButton';
 
+import reducer, { initialState } from './reducer';
 import {
-  getInitialRowsState,
-  addItem,
-  deleteItem,
-  updateColumnField,
-  updateRowField,
-} from './components/utils';
+  addRow,
+  updateRow,
+  deleteRow,
+  addColumn,
+  updateColumn,
+  deleteColumn,
+  resetTable,
+} from './actions';
+
 import AddButton from './components/buttons/AddButton';
 
 function App() {
-  const initialRows = getInitialRowsState();
+  const [{ rows, columns }, dispatch] = useReducer(reducer, initialState);
 
-  const [columns, setColumns] = useState(INITIAL_COLUMNS);
-  const [rows, setRows] = useState(initialRows);
+  const handelCreateTable = useCallback(() => {
+    dispatch(resetTable());
+  }, []);
 
-  const handelCreateTable = () => {
-    setColumns(INITIAL_COLUMNS);
-    setRows(initialRows);
-  };
+  const handleAddRow = useCallback(() => {
+    dispatch(addRow());
+  }, []);
 
-  const handleAddRow = () => {
-    const updatedRows = addItem(rows, {});
+  const handleAddColumn = useCallback(() => {
+    dispatch(addColumn());
+  }, []);
 
-    return setRows(updatedRows);
-  };
-
-  const handleAddColumn = () => {
-    const updatedColumns = addItem(columns, '');
-
-    return setColumns(updatedColumns);
-  };
-
-  const handleUpdateColumnField = columnId => value => {
-    const updatedColumns = updateColumnField(columns, columnId, value);
-
-    return setColumns(updatedColumns);
-  };
-
-  const handleUpdateRowField = (rowId, field) => value => {
-    const updatedRows = updateRowField(rows, rowId, field, value);
-
-    return setRows(updatedRows);
-  };
-
-  const handleDeleteRow = rowId => {
-    const newRows = deleteItem(rows, rowId);
-
-    return setRows(newRows);
-  };
-
-  const handleDeleteColumn = columnId => {
-    const newColumns = deleteItem(columns, columnId);
-
-    return setColumns(newColumns);
-  };
-
-  const handleExportCSV = () => {
+  const handleExportCSV = useCallback(() => {
     const csvContent = exportCSV(columns, rows);
 
     downloadCSV(csvContent);
-  };
+  }, [columns, rows]);
 
   const hasColumns = Object.keys(columns).length;
 
@@ -85,12 +56,13 @@ function App() {
         {hasColumns && (
           <Fragment>
             <Table
+              dispatch={dispatch}
               rows={rows}
               columns={columns}
-              onUpdateRowField={handleUpdateRowField}
-              onUpdateColumnField={handleUpdateColumnField}
-              onDeleteRow={handleDeleteRow}
-              onDeleteColumn={handleDeleteColumn}
+              onUpdateRowField={updateRow}
+              onUpdateColumnField={updateColumn}
+              onDeleteRow={deleteRow}
+              onDeleteColumn={deleteColumn}
               onAddColumn={handleAddColumn}
             />
             <AddRowSection>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import styled from 'styled-components';
 import { MdAdd } from 'react-icons/md';
 
@@ -15,4 +15,4 @@ const AddButton = props => (
   </StyledButton>
 );
 
-export default AddButton;
+export default memo(AddButton);

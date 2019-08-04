@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import styled from 'styled-components';
 import Button from './Button';
 
@@ -13,4 +13,4 @@ const CreateTableButton = ({ onClick }) => (
   <StyledButton onClick={onClick}>Create Table</StyledButton>
 );
 
-export default CreateTableButton;
+export default memo(CreateTableButton);

@@ -1,16 +1,14 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 
 import TableHeader from './TableHeader';
 import TableColumnHeader from './TableColumnHeader';
-import TableColumnHeaderContent from './TableColumnHeaderContent';
 import TableWrapper from './TableWrapper';
-import TableCellInput from './TableCellInput';
 import TableRow from './TableRow';
-import DeleteButton from '../buttons/DeleteButton';
 import AddButton from '../buttons/AddButton';
 
 const Table = ({
+  dispatch,
   rows,
   columns,
   onUpdateRowField,
@@ -23,20 +21,34 @@ const Table = ({
   const columnKeys = columnEntries.map(([key, value]) => key);
   const rowEntries = Object.entries(rows);
 
+  const handleColumnNameChange = (columnId, newValue) =>
+    dispatch(onUpdateColumnField(columnId, newValue));
+
+  const handleRowFieldChange = (rowId, fieldName, newValue) =>
+    dispatch(onUpdateRowField(rowId, fieldName, newValue));
+
+  const handleColumnDelete = useCallback(
+    columnId => dispatch(onDeleteColumn(columnId)),
+    [dispatch, onDeleteColumn]
+  );
+
+  const handleRowDelete = useCallback(rowId => dispatch(onDeleteRow(rowId)), [
+    dispatch,
+    onDeleteRow,
+  ]);
+
   return (
     <TableWrapper>
       <TableHeader>
         <tr>
           {columnEntries.map(([key, value]) => (
-            <TableColumnHeader key={key}>
-              <TableColumnHeaderContent>
-                <TableCellInput
-                  initialValue={value}
-                  onChange={onUpdateColumnField(key)}
-                />{' '}
-                <DeleteButton onClick={onDeleteColumn.bind(this, key)} />
-              </TableColumnHeaderContent>
-            </TableColumnHeader>
+            <TableColumnHeader
+              onDeleteColumn={handleColumnDelete}
+              onNameChange={handleColumnNameChange}
+              key={key}
+              columnId={key}
+              columnName={value}
+            />
           ))}
           <td key="addColumn">
             <AddButton onClick={onAddColumn} />
@@ -50,8 +62,8 @@ const Table = ({
             columns={columnKeys}
             id={key}
             data={value}
-            onInputChange={onUpdateRowField}
-            onDeleteClick={onDeleteRow.bind(this, key)}
+            onInputChange={handleRowFieldChange}
+            onDeleteClick={handleRowDelete}
           />
         ))}
       </tbody>

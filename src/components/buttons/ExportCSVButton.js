@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import styled from 'styled-components';
 import { MdFileDownload } from 'react-icons/md';
 import Button from './Button';
@@ -27,4 +27,4 @@ const ExportCSVButton = props => (
   </StyledButton>
 );
 
-export default ExportCSVButton;
+export default memo(ExportCSVButton);
