@@ -4,18 +4,17 @@ import { MdDelete } from 'react-icons/md';
 import Button from './Button';
 
 const StyledButton = styled(Button)`
-    color: #333;
+  color: #333;
 
-    &:hover {
-        color: #b71f1f;
-    }
+  &:hover {
+    color: #b71f1f;
+  }
 `;
 
-const DeleteButton = (props) => (
-    <StyledButton {...props}>
-        <MdDelete />
-    </StyledButton>
+const DeleteButton = props => (
+  <StyledButton {...props}>
+    <MdDelete />
+  </StyledButton>
 );
 
-export default DeleteButton
-
+export default DeleteButton;

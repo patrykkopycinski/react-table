@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const TableColumnHeaderContent = styled.div`
-    display: flex;
-`
+  display: flex;
+`;
 
 export default TableColumnHeaderContent;

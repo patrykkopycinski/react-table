@@ -11,7 +11,7 @@ it('renders without crashing', () => {
     onDeleteRow: jest.fn(),
     onAddColumn: jest.fn(),
     onDeleteColumn: jest.fn(),
-  }
+  };
 
   shallow(<Table {...props} />);
 });
